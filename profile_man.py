@@ -7,14 +7,14 @@ import re
 class fan_profile:
     fan1_rpm = []
     fan2_rpm = []
-    acceleration = []
-    deceleration = []
     cpu_min_temp= [] 
     cpu_max_temp= [] 
     gpu_min_temp= [] 
     gpu_max_temp= [] 
     ic_min_temp= [] 
     ic_max_temp= [] 
+    acceleration = []
+    deceleration = []
 
 default = fan_profile()
 
@@ -33,95 +33,87 @@ def find_hwmondir():
 
 
 def parse_config(fan_profile):
+    #fan1
+    for i in range(1,10):
+        file="pwm1_auto_point{}_pwm".format(i)
+        fan_profile.fan1_rpm.append(valueof(file))
 
-    # Fan1 
-    for file in os.listdir(hwmon_dir):
-        if fnmatch.fnmatch(file, 'pwm1_auto_point*_pwm'):
-            fan_profile.fan1_rpm.append(file)
-    # Fan2 
-        elif fnmatch.fnmatch(file, 'pwm2_auto_point*_pwm'):
-            fan_profile.fan2_rpm.append(file)
+    #fan2
+    for i in range(1,10):
+        file="pwm2_auto_point{}_pwm".format(i)
+        fan_profile.fan2_rpm.append(valueof(file))
 
-    # acceleration 
-        elif fnmatch.fnmatch(file, 'pwm1_auto_point*_accel'):
-            fan_profile.acceleration.append(file)
+    #cpu_min_temp
+    for i in range(1,10):
+        file="pwm1_auto_point{}_temp_hyst".format(i)
+        fan_profile.cpu_min_temp.append(valueof(file))
 
-    # deceleration 
-        elif fnmatch.fnmatch(file, 'pwm1_auto_point*_decel'):
-            fan_profile.deceleration.append(file)
+    #cpu_max_temp
+    for i in range(1,10):
+        file="pwm1_auto_point{}_temp".format(i)
+        fan_profile.cpu_max_temp.append(valueof(file))
 
-    # cpu_min_temp 
-        elif fnmatch.fnmatch(file, 'pwm1_auto_point*_temp_hyst'):
-            fan_profile.cpu_min_temp.append(file)
+    #gpu_min_temp
+    for i in range(1,10):
+        file="pwm2_auto_point{}_temp_hyst".format(i)
+        fan_profile.gpu_min_temp.append(valueof(file))
 
-    # cpu_max_temp 
-        elif fnmatch.fnmatch(file, 'pwm1_auto_point*_temp'):
-            fan_profile.cpu_max_temp.append(file)
+    #gpu_max_temp
+    for i in range(1,10):
+        file="pwm2_auto_point{}_temp".format(i)
+        fan_profile.gpu_max_temp.append(valueof(file))
 
-    # gpu_min_temp 
-        elif fnmatch.fnmatch(file, 'pwm2_auto_point*_temp_hyst'):
-            fan_profile.gpu_min_temp.append(file)
+    #ic_min_temp
+    for i in range(1,10):
+        file="pwm3_auto_point{}_temp_hyst".format(i)
+        fan_profile.ic_min_temp.append(valueof(file))
 
-    # gpu_max_temp 
-        elif fnmatch.fnmatch(file, 'pwm2_auto_point*_temp'):
-            fan_profile.gpu_max_temp.append(file)
+    #ic_max_temp
+    for i in range(1,10):
+        file="pwm3_auto_point{}_temp".format(i)
+        fan_profile.ic_max_temp.append(valueof(file))
 
-    # ic_min_temp 
-        elif fnmatch.fnmatch(file, 'pwm3_auto_point*_temp_hyst'):
-            fan_profile.ic_min_temp.append(file)
+    #acceleration
+    for i in range(1,10):
+        file="pwm1_auto_point{}_accel".format(i)
+        fan_profile.acceleration.append(valueof(file))
 
-    # ic_max_temp 
-        elif fnmatch.fnmatch(file, 'pwm3_auto_point*_temp'):
-            fan_profile.ic_max_temp.append(file)
-    
-    #fuckthing that sorts pwm_point2_point > pwm_point10_point as normal .sort doenst
-    fan_profile.fan1_rpm.sort(key=lambda test_string : list(map(int,re.findall(r'\d+',test_string))))
-    fan_profile.fan2_rpm.sort(key=lambda test_string : list(map(int,re.findall(r'\d+',test_string))))
-    fan_profile.acceleration.sort(key=lambda test_string : list(map(int,re.findall(r'\d+',test_string))))
-    fan_profile.deceleration.sort(key=lambda test_string : list(map(int,re.findall(r'\d+',test_string))))
-    fan_profile.cpu_min_temp.sort(key=lambda test_string : list(map(int,re.findall(r'\d+',test_string))))
-    fan_profile.cpu_max_temp.sort(key=lambda test_string : list(map(int,re.findall(r'\d+',test_string))))
-    fan_profile.gpu_min_temp.sort(key=lambda test_string : list(map(int,re.findall(r'\d+',test_string))))
-    fan_profile.gpu_max_temp.sort(key=lambda test_string : list(map(int,re.findall(r'\d+',test_string))))
-    fan_profile.ic_min_temp.sort(key=lambda test_string : list(map(int,re.findall(r'\d+',test_string))))
-    fan_profile.ic_max_temp.sort(key=lambda test_string : list(map(int,re.findall(r'\d+',test_string))))
-
-    #pass filename to value
-    map_list(fan_profile.fan1_rpm)
-    map_list(fan_profile.fan2_rpm)
-    map_list(fan_profile.acceleration)
-    map_list(fan_profile.deceleration)
-    map_list(fan_profile.cpu_min_temp)
-    map_list(fan_profile.cpu_max_temp)
-    map_list(fan_profile.gpu_min_temp)
-    map_list(fan_profile.gpu_max_temp)
-    map_list(fan_profile.ic_min_temp)
-    map_list(fan_profile.ic_max_temp)
+    #deceleration
+    for i in range(1,10):
+        file="pwm1_auto_point{}_decel".format(i)
+        fan_profile.deceleration.append(valueof(file))
 
 
-def store_default():
-    if os.path.exists("/home/" + os.getlogin() + "/.deffancurve") != True:
+def store_profile(profile):
+    if os.path.exists("/home/" + os.getlogin() + "/.{}".format(profile)) != True:
         print("no file")
         print("creating file...")
-        deffancurve = open(os.path.expanduser('~')+ "/.deffancurve", "x")
-        
-        for i in default.fan1_rpm:
-            deffancurve.write(i)
+        deffancurve = open(os.path.expanduser('~')+ "/.{}".format(profile), "x")
 
+        tmplist=[]
+        for list in dir(profile):
+            if not list.startswith('__'):
+
+                tmplist = getattr(profile,list)
+                deffancurve.write("#{}\n".format(list))
+
+                for element in tmplist:
+                    deffancurve.write(element)
     else: 
         print("File already exists")
 
-def store_custom():
+def store_defaults():
     print("placeholder")
 
 def load_profile():
     print("placeholder")
 
-def map_list(list):
-    for i in range(len(list)):
-         f = open(hwmon_dir + list[i] , "r")
-         list[i]=f.read(2048)
+def valueof(file):
+    f = open(hwmon_dir + file, "r")
+    value = f.read(2048)
+    return value
 
 find_hwmondir()
 parse_config(default)
-store_default()
+store_profile(default)
+
