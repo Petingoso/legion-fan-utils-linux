@@ -29,6 +29,14 @@ It'll read a give profile with `sudo python profile_man.py -i $PROFILE`, back up
 
 -  janky, as such, please sanitize your input 
 
+## Install with Service (optional)
+
+Change the fan curve files on the repo to your liking and run the install.sh script (DONT RUN WITH SUDO)
+Attencion: the presence of zero in the balanced and quiet files is because the queit and balance mode only have 9 and 8 fan point respectively please add zero ultil have 10 lines
+
+Location of the fan curves after install: $HOME/.config/lenovo-fan-control/
+
+Note: Dont use quiet mode on long intensive task on both battery and charger
 
 ___ 
 
@@ -37,3 +45,5 @@ ___
 
 
 #### Thanks to [the legion fan module](https://github.com/johnfanv2/LenovoLegionLinux) 
+
+#### Thaks for the [service] (https://github.com/MrDuartePT/legion-fan-utils-linux)
