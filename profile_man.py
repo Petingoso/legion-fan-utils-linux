@@ -332,4 +332,4 @@ print("parsing " + input_abs)
 parse_custom_profile(input_abs, custom)
 
 
-# apply_profile(custom)
+apply_profile(custom)
