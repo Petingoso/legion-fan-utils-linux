@@ -89,10 +89,11 @@ def parse_def_config(fan_profile):
 
 
 def store_profile(profile,name):
-    if os.path.exists("/home/" + os.getlogin() + "/.legion-profile-{}".format(name)) != True:
+    path = "/home/" + os.getlogin() + "/.legion-profile-{}".format(name)                
+    if os.path.exists(path) == False:
         print("no file")
         print("creating file...")
-        deffancurve = open("/home/" + os.getlogin() + "/.legion-profile-{}".format(name), "x")
+        deffancurve = open(path, "x")
 
         tmplist=[]
         for list in dir(profile):
@@ -190,13 +191,14 @@ def parse_custom_profile(path,profile):
 def is_default_stored():
     global profile_mode
 
-    f = open("/sys/firmware/acpi/platform_profile",r)
-    profile_mode = f.read(2048)
-    if os.path.exists("/home/" + os.getlogin() + "/.legion-" + profile_mode) != True:
-        echo("saving profile {}".format(profile_mode))
+    f = open("/sys/firmware/acpi/platform_profile","r")
+    profile_mode = f.readline()[:-1]
+    path="/home/" + os.getlogin() + "/.legion-" + profile_mode
+    if os.path.exists(path) == False:
+        print("saving profile {}".format(profile_mode))
         return 0
     else:
-        print("profile {} already stored", profile_mode)
+        print("profile {} already stored".format(profile_mode))
         return 1
 
 def valueof(file):
