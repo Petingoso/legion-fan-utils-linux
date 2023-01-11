@@ -2,7 +2,7 @@ import os
 from os.path import exists 
 import psutil
 import fnmatch
-import re
+import argparse
 
 class fan_profile:
     fan1_rpm = []
@@ -258,6 +258,17 @@ if is_default_stored() == 0:
     store_default()
 
 custom=fan_profile()
-parse_custom_profile("/home/petarch/.legion-profile1",custom)
-apply_profile(custom)
+# apply_profile(custom)
 
+argParser = argparse.ArgumentParser()
+argParser.add_argument("-i", "--input", help="profile to load")
+
+
+args = argParser.parse_args()
+
+input_abs=os.path.abspath(args.input)
+
+print("parsing" + input_abs)
+
+parse_custom_profile(input_abs, custom)
+apply_profile(custom)
