@@ -10,7 +10,7 @@ else
   Sudo=sudo
 fi
 
-$Sudo rm /usr/bin/lenovo_fan_profile.py
 $Sudo systemctl disable --now lenovo-fancurve.service lenovo-fancurve-restart.path lenovo-fancurve-restart.service
 $Sudo rm /etc/systemd/system/lenovo-fancurve.service /etc/systemd/system/lenovo-fancurve-restart.path /etc/systemd/system/lenovo-fancurve-restart.service
 $Sudo systemctl daemon-reload
+$Sudo su -c 'rm /usr/local/bin/lenovo-legion-fan-service.py'

@@ -186,21 +186,6 @@ def parse_custom_profile(path,profile):
                     continue
     print("profile parsed")
 
-
-
-def is_default_stored():
-    global profile_mode
-
-    f = open("/sys/firmware/acpi/platform_profile","r")
-    profile_mode = f.readline()[:-1]
-    path="/home/" + os.getlogin() + "/.legion-profile-default-" + profile_mode
-    if os.path.exists(path) == False:
-        print("saving profile {}".format(profile_mode))
-        return 0
-    else:
-        print("profile {} already stored".format(profile_mode))
-        return 1
-
 def valueof(file):
     f = open(hwmon_dir + file, "r")
     value = f.read(2048)
@@ -306,11 +291,6 @@ def apply_profile(fan_profile):
 find_hwmondir()
 default = fan_profile()
 
-if is_default_stored() == 0:
-    parse_def_config(default)
-    name = "default-" + profile_mode
-    store_profile(default,name)
-
 ####
 
 
@@ -321,12 +301,5 @@ argParser.add_argument("-i", "--input", help="profile to load")
 
 
 args = argParser.parse_args()
-
-input_abs=os.path.abspath(args.input)
-
-print("parsing " + input_abs)
-
-parse_custom_profile(input_abs, custom)
-
 
 apply_profile(custom)
