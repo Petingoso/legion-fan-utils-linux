@@ -173,64 +173,80 @@ def apply_profile(fan_profile):
         file = openabs("pwm1_auto_point{}_pwm".format(i))
         file.write(element)
         i=i+1
+        file.close()
 
-    file.close()
+    i=1
 
     for element in fan_profile.fan2_rpm:
         file = openabs("pwm2_auto_point{}_pwm".format(i))
         file.write(element)
         i=i+1
+        file.close()
 
-    file.close()
+    i=1
 
     for element in fan_profile.cpu_min_temp:
         file = openabs("pwm1_auto_point{}_temp_hyst".format(i))
         file.write(element)
         i=i+1
+        file.close()
 
-    file.close()
+    i=1
 
     for element in fan_profile.cpu_max_temp:
         file = openabs("pwm1_auto_point{}_temp".format(i))
         file.write(element)
         i=i+1
-    file.close()
+        file.close()
+
+    i=1
 
     for element in fan_profile.gpu_min_temp:
         file = openabs("pwm2_auto_point{}_temp_hyst".format(i))
         file.write(element)
         i=i+1
-    file.close()
+        file.close()
+
+    i=1
 
     for element in fan_profile.gpu_max_temp:
         file = openabs("pwm2_auto_point{}_temp".format(i))
         file.write(element)
         i=i+1
-    file.close()
+        file.close()
+
+    i=1
 
     for element in fan_profile.ic_min_temp:
         file = openabs("pwm3_auto_point{}_temp_hyst".format(i))
         file.write(element)
         i=i+1
-    file.close()
+        file.close()
+
+    i=1
 
     for element in fan_profile.ic_max_temp:
         file = openabs("pwm3_auto_point{}_temp".format(i))
         file.write(element)
         i=i+1
-    file.close()
+        file.close()
+
+    i=1
 
     for element in fan_profile.acceleration:
         file = openabs("pwm1_auto_point{}_accel".format(i))
         file.write(element)
         i=i+1
-    file.close()
+        file.close()
+
+    i=1
 
     for element in fan_profile.deceleration:
         file = openabs("pwm1_auto_point{}_decel".format(i))
         file.write(element)
         i=i+1
-    file.close()
+        file.close()
+
 
     print(fan_profile + "applied")
 
