@@ -1,7 +1,6 @@
 #!/bin/bash
 POWER_PROFILE=$(cat /sys/firmware/acpi/platform_profile)
-USER=$(whoami)
-FOLDER=/home/$USER/.config/lenovo-fan-control
+FOLDER=$HOME/.config/lenovo-fan-control
 
 if  acpi -a | grep -q on-line; then
 

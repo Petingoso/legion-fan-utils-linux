@@ -1,8 +1,7 @@
 #!/bin/zsh
 
-USER=$(whoami)
 
-mkdir /home/$USER/.config/lenovo-fan-control
+mkdir $HOME/.config/lenovo-fan-control
 
 #fix service and python file
 sed -i "s/user_name/$USER/g" "service/lenovo-fancurve.service"
@@ -12,16 +11,16 @@ cp service/*.sh /home/$USER/.config/lenovo-fan-control/
 chmod +x profile_man.py
 
 if ! type "$foobar_doas" > /dev/null; then
-  Sudo=doas
+  sudo=doas
 else 
-  Sudo=sudo
+  sudo=sudo
 fi
-$Sudo su -c 'cp service/lenovo-legion-fan-service.py /usr/local/bin/lenovo-legion-fan-service.py'
-$Sudo cp service/*.service /etc/systemd/system
-$Sudo cp service/*.path /etc/systemd/system
-$Sudo systemctl daemon-reload
-$Sudo systemctl enable --now lenovo-fancurve.service 
-$Sudo systemctl enable --now lenovo-fancurve-restart.path lenovo-fancurve-restart.service
+ssudo su -c 'cp service/lenovo-legion-fan-service.py /usr/local/bin/lenovo-legion-fan-service.py'
+ssudo cp service/*.service /etc/systemd/system
+ssudo cp service/*.path /etc/systemd/system
+ssudo systemctl daemon-reload
+ssudo systemctl enable --now lenovo-fancurve.service 
+ssudo systemctl enable --now lenovo-fancurve-restart.path lenovo-fancurve-restart.service
 
 #repair install script after install
 sed -i "s/$USER/user_name/g" "service/lenovo-fancurve.service"
