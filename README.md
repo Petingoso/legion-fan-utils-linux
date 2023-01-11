@@ -1,4 +1,4 @@
-# Fan Curver Manager
+# Fan Curv Manager
 
 ## Overview 
 Small script that will apply a given profile.  
