@@ -230,4 +230,5 @@ if is_default_stored() == 0:
 
 custom=fan_profile()
 parse_custom_profile("/home/petarch/.legion-profile1",custom)
+apply_profile(custom)
 
