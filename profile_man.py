@@ -268,7 +268,7 @@ args = argParser.parse_args()
 
 input_abs=os.path.abspath(args.input)
 
-print("parsing" + input_abs)
+print("parsing " + input_abs)
 
 parse_custom_profile(input_abs, custom)
 apply_profile(custom)
