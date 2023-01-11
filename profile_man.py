@@ -111,33 +111,92 @@ def store_default():
     store_profile(default,"default")
 
 def parse_custom_profile(path,profile):
-    i=1 
     file=open(path,'r')
     for line in file:
         if line.startswith("#"):
-            continue
-        else:
-            if i<=10:
-                profile.acceleration.append(line)
-            elif i<=20:
-                profile.cpu_max_temp.append(line)
-            elif i<=30:
-                profile.cpu_min_temp.append(line)
-            elif i<=40:
-                profile.deceleration.append(line)
-            elif i<=50:
-                profile.fan1_rpm.append(line)
-            elif i<=60:
-                profile.fan2_rpm.append(line)
-            elif i<=70:
-                profile.gpu_max_temp.append(line)
-            elif i<=80:
-                profile.gpu_min_temp.append(line)
-            elif i<=90:
-                profile.ic_max_temp.append(line)
-            elif i<=100:
-                profile.ic_min_temp.append(line)
-        i=i+1
+            if "Fan" in line or "fan" in line:
+                print("fan in line")
+                if "1" in line:
+                    #advance 1 line
+                    for i in range(10):
+                        line = file.readline()
+                        print("fan1, appending {}".format(line))
+                        profile.fan1_rpm.append(line)
+                
+                    continue
+
+                elif "2" in line:
+                    for i in range(10):
+                        line = file.readline()
+                        print("fan2, appending {}".format(line))
+                        profile.fan2_rpm.append(line)
+
+                    continue
+
+            elif "Acc" in line or "acc" in line:
+                print(line)
+                for i in range(10):
+                    line = file.readline()
+                    print("acceleration, appending {}".format(line))
+                    profile.acceleration.append(line)
+
+                continue 
+
+            elif "dec" in line or "Dec" in line:
+                for i in range(10):
+                    line = file.readline()
+                    print("deceleration, appending {}".format(line))
+                    profile.deceleration.append(line)
+                
+                continue
+
+            elif "gpu" in line or "GPU" in line or "Gpu" in line:
+                if "low" in line or "Low" in line or "min" in line or "Min" in line:
+                    for i in range(10):
+                        line = file.readline()
+                        print("gpumin, appending {}".format(line))
+                        profile.gpu_min_temp.append(line)
+                    
+                    continue
+
+                elif "Up" in line or "up" in line or "Max" in line or "max" in line:
+                    for i in range(10):
+                        line = file.readline()
+                        print("gpumax, appending {}".format(line))
+                        profile.gpu_max_temp.append(line)
+                    
+                    continue
+
+            elif "cpu" in line or "CPU" in line or "Cpu" in line:
+                if "low" in line or "Low" in line or "min" in line or "Min" in line:
+                    for i in range(10):
+                        line = file.readline()
+                        print("cpu_min_temp, appending {}".format(line))
+                        profile.cpu_min_temp.append(line)
+                    continue
+
+                elif "Up" in line or "up" in line or "Max" in line or "max" in line:
+                    for i in range(10):
+                        line = file.readline()
+                        print("cpu_max_temp, appending {}".format(line))
+                        profile.cpu_max_temp.append(line)
+                    continue
+
+            elif "ic" in line or "Ic" in line or "IC" in line:
+                if "low" in line or "Low" in line or "min" in line or "Min" in line:
+                    for i in range(10):
+                        line = file.readline()
+                        print("ic_min_temp, appending {}".format(line))
+                        profile.ic_min_temp.append(line)
+                    continue
+
+                elif "Up" in line or "up" in line or "Max" in line or "max" in line: 
+                    for i in range(10):
+                        line = file.readline()
+                        print("ic_max_temp, appending {}".format(line))
+                        profile.ic_max_temp.append(line)
+                    continue
+    print("profile parsed")
 
 
 
@@ -271,4 +330,6 @@ input_abs=os.path.abspath(args.input)
 print("parsing " + input_abs)
 
 parse_custom_profile(input_abs, custom)
-apply_profile(custom)
+
+
+# apply_profile(custom)
