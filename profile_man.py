@@ -110,7 +110,7 @@ def store_default():
     parse_def_config(default)
     store_profile(default,"default")
 
-def parse_custom_profile(path,custom):
+def parse_custom_profile(path,profile):
     i=1 
     file=open(path,'r')
     for line in file:
@@ -118,25 +118,25 @@ def parse_custom_profile(path,custom):
             continue
         else:
             if i<=10:
-                custom.acceleration.append(line)
+                profile.acceleration.append(line)
             elif i<=20:
-                custom.cpu_max_temp.append(line)
+                profile.cpu_max_temp.append(line)
             elif i<=30:
-                custom.cpu_min_temp.append(line)
+                profile.cpu_min_temp.append(line)
             elif i<=40:
-                custom.deceleration.append(line)
+                profile.deceleration.append(line)
             elif i<=50:
-                custom.fan1_rpm.append(line)
+                profile.fan1_rpm.append(line)
             elif i<=60:
-                custom.fan2_rpm.append(line)
+                profile.fan2_rpm.append(line)
             elif i<=70:
-                custom.gpu_max_temp.append(line)
+                profile.gpu_max_temp.append(line)
             elif i<=80:
-                custom.gpu_min_temp.append(line)
+                profile.gpu_min_temp.append(line)
             elif i<=90:
-                custom.ic_max_temp.append(line)
+                profile.ic_max_temp.append(line)
             elif i<=100:
-                custom.ic_min_temp.append(line)
+                profile.ic_min_temp.append(line)
         i=i+1
 
 
