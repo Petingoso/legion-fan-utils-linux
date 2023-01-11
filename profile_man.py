@@ -193,7 +193,7 @@ def is_default_stored():
 
     f = open("/sys/firmware/acpi/platform_profile","r")
     profile_mode = f.readline()[:-1]
-    path="/home/" + os.getlogin() + "/.legion-" + profile_mode
+    path="/home/" + os.getlogin() + "/.legion-profile-default-" + profile_mode
     if os.path.exists(path) == False:
         print("saving profile {}".format(profile_mode))
         return 0
@@ -308,7 +308,8 @@ default = fan_profile()
 
 if is_default_stored() == 0:
     parse_def_config(default)
-    store_profile(default,profile_mode)
+    name = "default-" + profile_mode
+    store_profile(default,name)
 
 ####
 
