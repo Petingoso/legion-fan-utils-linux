@@ -156,7 +156,7 @@ def valueof(file):
     return value
 
 def openabs(file):
-    f = open(hwmon_dir + file, "r")
+    f = open(hwmon_dir + file, "w")
     return f
 
 
@@ -248,7 +248,7 @@ def apply_profile(fan_profile):
         file.close()
 
 
-    print(fan_profile + "applied")
+    print("fan profile applied")
 
 
 
