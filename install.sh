@@ -8,7 +8,7 @@ fi
 
 $sudo mkdir -p /etc/lenovo-fan-control/profiles
 
-$sudo cp service/legion-profile* /etc/lenovo-fan-control/profiles
+$sudo cp service/profiles/* /etc/lenovo-fan-control/profiles
 chmod +x profile_man.py
 
 
