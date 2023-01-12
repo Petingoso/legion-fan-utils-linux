@@ -7,7 +7,9 @@ It'll read a give profile with `sudo python profile_man.py -i $PROFILE`, back up
 
 
 ## Features 
-- Non permanent, by design. there's a daemon in works, so TOUPDATE 
+- Non permanent, by design. 
+
+- Daemon to chage automatically to the profiles in /etc/lenovo-fan-control/profiles, with updating on mode change and battery events 
 
 - Expandable and scriptable, with tiny adjustments you can load easily, such as backing up all profile modes or tweaking to only parse.  
 
