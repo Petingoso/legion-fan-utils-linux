@@ -9,9 +9,7 @@ fi
 $sudo mkdir -p /etc/lenovo-fan-control/profiles
 
 $sudo cp service/profiles/* /etc/lenovo-fan-control/profiles
-chmod +x profile_man.py
-
-
+$sudo cp service/fancurve-set.sh /etc/lenovo-fan-control
 $sudo cp service/lenovo-legion-fan-service.py /usr/local/bin/lenovo-legion-fan-service.py
 $sudo cp profile_man.py /usr/local/bin/lenovo-legion-manager.py
 $sudo cp service/*.service /etc/systemd/system
