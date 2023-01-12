@@ -1,6 +1,7 @@
 [Path]
 Unit=lenovo-fancurve-restart.service
 PathModified=/sys/firmware/acpi/platform_profile
+PathModified=/sys/class/power_supply/ADP0/online
 
 [Install]
-WantedBy=multi-user.target
+WantedBy=default.target
