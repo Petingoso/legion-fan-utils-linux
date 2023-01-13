@@ -51,3 +51,6 @@ ___
 #### Thanks to [the legion fan module](https://github.com/johnfanv2/LenovoLegionLinux) 
 
 #### Thanks for the [systemd service](https://github.com/MrDuartePT/legion-fan-utils-linux)
+
+### Note:
+This package and dependency will be updated to the aur for now when using PKGBUILD comment out the dependency and install the module before hand
