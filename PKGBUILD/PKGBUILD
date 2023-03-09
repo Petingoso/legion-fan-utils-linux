@@ -38,3 +38,10 @@ package() {
 	install -Dm775 service/*.service "${pkgdir}/etc/systemd/system"
 	install -Dm775 service/*.path "${pkgdir}/etc/systemd/system"
 }
+
+	#Message to enable services
+	echo "Enable systemd services after install:"
+	echo "lenovo-fancurve-restart.service"
+	echo "lenovo-fancurve-restart.path"
+	echo "lenovo-fancurve-restart.service"
+}
