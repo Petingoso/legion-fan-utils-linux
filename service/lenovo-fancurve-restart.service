@@ -1,3 +1,3 @@
 [Service]
 Type=oneshot
-ExecStart=/usr/bin/systemctl restart lenovo-fancurve.service
+ExecStart=/bin/systemctl restart lenovo-fancurve.service
