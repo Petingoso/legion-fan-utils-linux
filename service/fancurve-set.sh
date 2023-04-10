@@ -10,7 +10,8 @@ KERNEL=$(uname -r)
 NVIDIA_LOADED=$(lsmod | grep -w "nvidia")
 
 #Verify NVIDIA and AMD
-  if [[ $(ls /lib/modules/$KERNEL/video/nvidia.ko) ]]; then
+#Was done like that because if you have the nvidia gpu disable the only way to know if you use nvidia is by finding the kernel module
+  if [[ $(lspci | grep NVIDIA) || $(ls /lib/modules/$KERNEL/video/nvidia.ko) ]]; then 
     TEAM_GREEN=1
   else
     TEAM_RED=1  
@@ -66,7 +67,7 @@ else
         #Before fan curve to avoid failling to apply
         #TDP in quiet
         if [[ $TEAM_GREEN -eq 1 && $NVIDIA_LOADED ]]; then
-            exec nvidia-smi -pl 80 # set to 80W
+            exec nvidia-smi -pl 60 # set to 60W
         elif [[ $TEAM_RED -eq 1 ]]; then
             echo "Need help for AMD :( open a issue"
         fi
@@ -78,7 +79,7 @@ else
         #Before fan curve to avoid failling to apply
         #TDP in quiet
         if [[ $TEAM_GREEN -eq 1 && $NVIDIA_LOADED ]]; then
-            exec nvidia-smi -pl 100 # set to 100W
+            exec nvidia-smi -pl 80 # set to 80W
         elif [[ $TEAM_RED -eq 1 ]]; then
             echo "Need help for AMD :( open a issue"
         fi
