@@ -29,7 +29,9 @@ It'll read a give profile with `sudo python profile_man.py -i $PROFILE`, back up
 ```
 - should be compatible with all models of the kernel module
 
--  janky, as such, please sanitize your input 
+-  janky, as such, please sanitize your input
+
+-  Gpu TDP change (systemd service) *[for now only Nvidia supported for AMD I need someone with all AMD legion]*
 
 ## Install Systemd Service (optional)
 
@@ -42,6 +44,30 @@ Notes:
 - When using this service you need to disable if you what the default behaviour using this command: sudo systemctl disable --now lenovo-fancurve.service lenovo-fancurve-restart.path lenovo-fancurve-restart.service
 - Dont use quiet mode on long intensive task on both battery and charger
 
+### Gpu TDP change
+The TDP change is made using the nvidia-smi and ths env variable need to be set, the valuabes set in the fancurve.sh script is for 3070 laptop if you have a different you need to find two valubles one is the base TDP and Max TDP (the Max TDP is value your gpu can go with dynamic boost [nvidia-powerd service])
+
+For some driver version you need to run this as root:
+```bash
+systemctl enable --now nvidia-persistenced.service
+```
+Note if the script get error "nvidia-smi dont exist" create symbolink with this command:
+```bash
+ln -P /opt/bin/nvidia-smi /bin/nvidia-smi
+```
+
+We this two value you can change few lines in the [fancurve.sh script](service/fancurve-set.sh)
+
+This is a exemple of you can set (3070 values):
+ - For quiet you set the base tdp or lower (nvidia-smi -pl 80)
+ - For perfomance you set the MAX tdp (nvidia-smi -pl 115 [you can set to 125 if you have a clevo vbios])
+ - For balance you can set the base tdp if you set lower in quiet (nvidia-smi -pl 130 [you can set to 140 if you have a clevo vbios])
+
+NOTES: ONLY WORK ON 525 NVIDIA DRIVER
+
+Roadmap:
+ - Thinking of adding CPU TDP control (Intel and AMD)
+ - If you whant a AMD support create a issue i need some help and tester
 ___ 
 
 ### Obligatory don't take me to court 
