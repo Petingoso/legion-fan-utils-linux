@@ -21,7 +21,7 @@ It'll read a give profile with `sudo python profile_man.py -i $PROFILE`, back up
 3 
 4 
 5 
-6 
+6 superglfx
 7 
 8 
 9
@@ -45,29 +45,62 @@ Notes:
 - Dont use quiet mode on long intensive task on both battery and charger
 
 ### Gpu TDP change
-The TDP change is made using the nvidia-smi and ths env variable need to be set, the valuabes set in the fancurve.sh script is for 3070 laptop if you have a different you need to find two valubles one is the base TDP and Max TDP (the Max TDP is value your gpu can go with dynamic boost [nvidia-powerd service])
+***WARNING:ONLY WORK ON 525 NVIDIA DRIVER/AMD WORK ON ANY VERSION TO MY KNOWLAGE***
 
-For some driver version you need to run this as root:
+***WARNING:I DONT HAVE A AMD MACHINE PLS OPEN ISSUE AND REPORT BACK TO ME IF IT WORKS***
+
+**Setup**
+
+The TDP change is made using the nvidia-smi for NVIDIA GPU and rocm-smi for AMD GPU, for enable the GPU TDP change you need to edit the following file:
+```bash
+/etc/lenovo-fan-control/.env
+#!/bin/bash
+
+# Remove the comment for your configuration
+
+#RYZEN
+#RYZEN_RED=1
+#INTEL
+#INTEL_BLUE=1
+#NVIDIA
+#TEAM_GREEN=1
+#AMD
+#TEAM_RED=1
+```
+
+NVIDIA Notes only:
+Try chnage the nvidia gpu TDP with this command: ```nvidia-smi -pl 140```
+If dosent work run this command and try again (this command break supergfx funcionality):
 ```bash
 systemctl enable --now nvidia-persistenced.service
 ```
-Note if the script get error "nvidia-smi dont exist" create symbolink with this command:
+Both nvidia and AMD:
+
+If ```/bin/nvidia-smi``` (for nvidia user) or ```/bin/rocm-smi``` (for amd users) dosent exist create this symbolink:
 ```bash
+# For Nvidia
 ln -P /opt/bin/nvidia-smi /bin/nvidia-smi
+# For AMD
+ln -P /opt/rocm/bin/rocm-smi /bin/rocm-smi
 ```
 
-We this two value you can change few lines in the [fancurve.sh script](service/fancurve-set.sh)
+For supergfx user i recommend creating this alias on .basrc or .zshrc:
+```bash
+alias hybrid_mod="supergfxctl -m hybrid && systemctl start nvidia-persistenced.service"
+alias integrated_mode="systemctl stop nvidia-persistenced.service && supergfxctl -m integrated"
+```
+
+**Changing Values**
+Pls get the values of the Base TDP amd MAX TDP for your graphics card:
+We this two value you can change few lines in the file [/etc/lenovo-fan-control/fancurve.sh](service/fancurve-set.sh)
 
 This is a exemple of you can set (3070 values):
  - For quiet you set the base tdp or lower (nvidia-smi -pl 80)
  - For perfomance you set the MAX tdp (nvidia-smi -pl 115 [you can set to 125 if you have a clevo vbios])
  - For balance you can set the base tdp if you set lower in quiet (nvidia-smi -pl 130 [you can set to 140 if you have a clevo vbios])
 
-NOTES: ONLY WORK ON 525 NVIDIA DRIVER
-
 Roadmap:
- - Thinking of adding CPU TDP control (Intel and AMD)
- - If you whant a AMD support create a issue i need some help and tester
+ - ADD CPU TDP control (Intel and AMD)
 ___ 
 
 ### Obligatory don't take me to court 
