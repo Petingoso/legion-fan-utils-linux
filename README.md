@@ -73,7 +73,7 @@ To enable this feature, edit or create the follwing file
 
 NVIDIA Notes only:
 Try to change the nvidia gpu TDP with this command: ```nvidia-smi -pl 140```
-If doesn't work run this command instead (this command break supergfx funcionality):
+If doesn't work run this command and retrying (this command break supergfx funcionality):
 ```
 systemctl enable --now nvidia-persistenced.service
 ```
