@@ -1,0 +1,4 @@
+#restart lenovo-fancurve.service when ac_adapter is removed
+
+event=ac_adapter*
+action=/bin/systemctl restart lenovo-fancurve.service

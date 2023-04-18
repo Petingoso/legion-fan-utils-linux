@@ -35,6 +35,8 @@ It'll read a give profile with `sudo python profile_man.py -i $PROFILE`, back up
 
 ## Install Systemd Service (optional)
 
+Note: acpid deamon is needed to systemd service restart when plug in and remove the charger.
+
 Change the fan curve files on the repo to your liking and run the install.sh script (DONT RUN WITH SUDO)
 Attencion: the presence of zero in the balanced and quiet files is because the queit and balance mode only have 9 and 8 fan point respectively please add zero ultil have 10 lines
 

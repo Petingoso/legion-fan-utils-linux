@@ -15,6 +15,7 @@ $sudo cp service/lenovo-legion-fan-service.py /usr/local/bin/lenovo-legion-fan-s
 $sudo cp profile_man.py /usr/local/bin/lenovo-legion-manager.py
 $sudo cp service/*.service /etc/systemd/system
 $sudo cp service/*.path /etc/systemd/system
+$sudo cp service/ac_adapter_legion-fancurve /etc/acpi/events/
 $sudo systemctl daemon-reload
 $sudo systemctl enable --now lenovo-fancurve.service 
 $sudo systemctl enable --now lenovo-fancurve-restart.path lenovo-fancurve-restart.service
