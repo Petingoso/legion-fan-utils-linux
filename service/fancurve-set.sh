@@ -9,13 +9,8 @@ KERNEL=$(uname -r)
 #verfiy Nvidia card is not using vfio
 NVIDIA_LOADED=$(lsmod | grep -w "nvidia")
 
-#Verify NVIDIA and AMD
-#Was done like that because if you have the nvidia gpu disable the only way to know if you use nvidia is by finding the kernel module
-  if [[ $(lspci | grep NVIDIA) || $(ls /lib/modules/$KERNEL/video/nvidia.ko) ]]; then 
-    TEAM_GREEN=1
-  else
-    TEAM_RED=1  
-  fi
+#Pls edit this file for enable GPU TDP
+source /etc/lenovo-fan-control/.env
 
 if  [ $AC_ADAPTER == 1 ]; then
 
@@ -26,12 +21,10 @@ if  [ $AC_ADAPTER == 1 ]; then
         if [[ $TEAM_GREEN -eq 1 && $NVIDIA_LOADED ]]; then
             exec nvidia-smi -pl 80 # set to 80W
         elif [[ $TEAM_RED -eq 1 ]]; then
-            echo "Need help for AMD :( open a issue"
+            exec rocm-smi --setpoweroverdrive 80 # set to 80W
         fi
 
         exec python /usr/local/bin/lenovo-legion-fan-service.py -i $FOLDER/legion-profile-charger-quiet
-
-
     elif [ $POWER_PROFILE == balanced ]; then
         echo "Applying Balance Mode Profile   -> charger..."
 
@@ -40,48 +33,48 @@ if  [ $AC_ADAPTER == 1 ]; then
         if [[ $TEAM_GREEN -eq 1 && $NVIDIA_LOADED ]]; then
             exec nvidia-smi -pl 125 # set to 125W
         elif [[ $TEAM_RED -eq 1 ]]; then
-            echo "Need help for AMD :( open a issue"
+            exec rocm-smi --setpoweroverdrive 125 # set to 125W
         fi
 
         exec python /usr/local/bin/lenovo-legion-fan-service.py -i $FOLDER/legion-profile-charger-balance
-
     else
         echo "Applying Performance Mode Profile 龍  -> charger..."
-        exec python /usr/local/bin/lenovo-legion-fan-service.py -i $FOLDER/legion-profile-charger-performance
 
         #Before fan curve to avoid failling to apply
         #TDP in performance
         if [[ $TEAM_GREEN -eq 1 && $NVIDIA_LOADED ]]; then
-            exec nvidia-smi -pl 125 # set to 125W
+            exec nvidia-smi -pl 140 # set to 140W
         elif [[ $TEAM_RED -eq 1 ]]; then
-            echo "Need help for AMD :( open a issue"
+            exec rocm-smi --setpoweroverdrive 140 # set to 140W
         fi
     
+        exec python /usr/local/bin/lenovo-legion-fan-service.py -i $FOLDER/legion-profile-charger-performance
     fi
 
 else
     if [ $POWER_PROFILE == quiet ]; then
         echo "Applying Quiet Mode Profile ﴛ  -> battery..."
-        exec python /usr/local/bin/lenovo-legion-fan-service.py -i $FOLDER/legion-profile-battery-quiet
 
         #Before fan curve to avoid failling to apply
         #TDP in quiet
         if [[ $TEAM_GREEN -eq 1 && $NVIDIA_LOADED ]]; then
-            exec nvidia-smi -pl 60 # set to 60W
+            exec nvidia-smi -pl 55 # set to 55W
         elif [[ $TEAM_RED -eq 1 ]]; then
-            echo "Need help for AMD :( open a issue"
+            exec rocm-smi --setpoweroverdrive 55 # set to 55W
         fi
 
+        exec python /usr/local/bin/lenovo-legion-fan-service.py -i $FOLDER/legion-profile-battery-quiet
     else
         echo "Applying Balance Mode Profile   -> battery..." 
-        exec python /usr/local/bin/lenovo-legion-fan-service.py -i $FOLDER/legion-profile-battery-balanced
         
         #Before fan curve to avoid failling to apply
         #TDP in quiet
         if [[ $TEAM_GREEN -eq 1 && $NVIDIA_LOADED ]]; then
-            exec nvidia-smi -pl 80 # set to 80W
+            exec nvidia-smi -pl 65 # set to 65W
         elif [[ $TEAM_RED -eq 1 ]]; then
-            echo "Need help for AMD :( open a issue"
+            exec rocm-smi --setpoweroverdrive 65 # set to 65W
         fi
+
+        exec python /usr/local/bin/lenovo-legion-fan-service.py -i $FOLDER/legion-profile-battery-balance
     fi
 fi
