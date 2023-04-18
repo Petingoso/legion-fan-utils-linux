@@ -51,20 +51,21 @@ Notes:
 
 **Setup**
 
-The TDP change is made using the nvidia-smi for NVIDIA GPU and rocm-smi for AMD GPU, for enable the GPU TDP change you need to edit the following file:
+The TDP change is made using the nvidia-smi for NVIDIA GPU and [rocm-smi](https://github.com/RadeonOpenCompute/rocm_smi_lib) for AMD GPU (CPU control will be added in the future).
+For enable this feature edit or create the follwing file
 ```bash
 /etc/lenovo-fan-control/.env
 #!/bin/bash
 
 # Remove the comment for your configuration
 
-#RYZEN
+#RYZEN (Cpu TDP control using RyzenADJ)
 #RYZEN_RED=1
-#INTEL
+#INTEL (Cpu control using undervolt) [https://github.com/georgewhewell/undervolt]
 #INTEL_BLUE=1
-#NVIDIA
+#NVIDIA (nvidia-smi)
 #TEAM_GREEN=1
-#AMD
+#AMD (rocm-smi)
 #TEAM_RED=1
 ```
 
