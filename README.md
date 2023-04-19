@@ -9,7 +9,9 @@ It'll read a give profile with `sudo python profile_man.py -i $PROFILE`, back up
 ## Features 
 - Non permanent, by design. 
 
-- Daemon to chage automatically to the profiles in /etc/lenovo-fan-control/profiles, with updating on mode change and battery events 
+- Daemon to chage automatically to the profiles in /etc/lenovo-fan-control/profiles, with updating on mode change and battery events
+
+- Folder location and fancurve files name can be change by editing [/etc/lenovo-fan-control/fancurve.sh](service/fancurve-set.sh)
 
 - Expandable and scriptable, with tiny adjustments you can load easily, such as backing up all profile modes or tweaking to only parse.  
 
@@ -31,7 +33,7 @@ It'll read a give profile with `sudo python profile_man.py -i $PROFILE`, back up
 
 -  janky, as such, please sanitize your input
 
--  Gpu TDP change (systemd service) *[for now only Nvidia supported for AMD I need someone with all AMD legion]*
+-  Gpu TDP change for AMD and NVIDIA (an be change by editing [/etc/lenovo-fan-control/fancurve.sh](service/fancurve-set.sh))
 
 ## Install Systemd Service (optional)
 
@@ -98,9 +100,9 @@ Please get the values of the Base TDP amd MAX TDP for your graphics card:
 With these two values you can change a few lines in the file [/etc/lenovo-fan-control/fancurve.sh](service/fancurve-set.sh)
 
 This is a exemple of you can set (3070 values):
- - For quiet you set the base tdp or lower (nvidia-smi -pl 80)
- - For perfomance you set the MAX tdp (nvidia-smi -pl 115 [you can set to 125 if you have a clevo vbios])
- - For balance you can set the base tdp if you set lower in quiet (nvidia-smi -pl 130 [you can set to 140 if you have a clevo vbios])
+ - For quiet you set the base tdp or lower (GPU_TDP=80)
+ - For perfomance you set the MAX tdp (GPU_TDP=115 [you can set to 125 if you have a clevo vbios])
+ - For balance you can set the base tdp if you set lower in quiet (GPU_TDP=130 [you can set to 140 if you have a clevo vbios])
 
 Roadmap:
  - ADD CPU TDP control (Intel and AMD)
