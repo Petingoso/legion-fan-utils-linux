@@ -5,7 +5,8 @@
 POWER_PROFILE=$(cat /sys/firmware/acpi/platform_profile)
 AC_ADAPTER=$(cat /sys/class/power_supply/ADP0/online)
 #verfiy Nvidia card is not using vfio
-NVIDIA_LOADED=$(lsmod | grep -w "nvidia")
+VFIO_LOADED=$(lsmod | grep -w "vfio_pci") #verify vfio
+NVIDIA_LOADED=$(lsmod | grep -w "nvidia") #verify nvidia dGPU is loaded
 FOLDER=/etc/lenovo-fan-control/profiles # Location of the profiles
 #GPU_TDP #value of the gpu tdp in watts
 # Fancurve file name (also you can edit FOLDER to edit the location of profiles)
@@ -38,11 +39,9 @@ else
 fi
 
 if [[ $TEAM_GREEN -eq 1 && $NVIDIA_LOADED ]]; then
-    ls $FANCURVE_FILE
-    python /usr/local/bin/lenovo-legion-fan-service.py -i $FANCURVE_FILE 
     nvidia-smi -pl $GPU_TDP
-elif [[ $TEAM_RED -eq 1 ]]; then
-    python /usr/local/bin/lenovo-legion-fan-service.py -i $FANCURVE_FILE
-else
-    python /usr/local/bin/lenovo-legion-fan-service.py -i $FANCURVE_FILE
+elif [[ $TEAM_RED -eq 1 && $VFIO_LOADED -eq false ]]; then
+    rocm-smi --setpoweroverdrive $GPU_TDP
 fi
+
+python /usr/local/bin/lenovo-legion-fan-service.py -i $FANCURVE_FILE
