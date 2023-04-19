@@ -23,7 +23,7 @@ It'll read a give profile with `sudo python profile_man.py -i $PROFILE`, back up
 3 
 4 
 5 
-6 superglfx
+6
 7 
 8 
 9
@@ -37,26 +37,26 @@ It'll read a give profile with `sudo python profile_man.py -i $PROFILE`, back up
 
 ## Install Systemd Service (optional)
 
-Note: acpid deamon is needed to systemd service restart when plug in and remove the charger.
+Note: acpid daemon is needed to `systemd service restart` when plugged into AC and the charger is removed.
 
 Change the fan curve files on the repo to your liking and run the install.sh script (DONT RUN WITH SUDO)
-Attencion: the presence of zero in the balanced and quiet files is because the queit and balance mode only have 9 and 8 fan point respectively please add zero ultil have 10 lines
+Attention: the presence of zero in the balanced and quiet files is because the queit and balance modes only have 9 and 8 fan point respectively, please add zero until they have 10 lines
 
 Location of the fan curves after install: /etc/lenovo-fan-control/
 
 Notes:
-- When using this service you need to disable if you what the default behaviour using this command: sudo systemctl disable --now lenovo-fancurve.service lenovo-fancurve-restart.path lenovo-fancurve-restart.service
-- Dont use quiet mode on long intensive task on both battery and charger
+- When using this service you need to disable, if you want to, the default behaviour using this command: sudo systemctl disable --now lenovo-fancurve.service lenovo-fancurve-restart.path lenovo-fancurve-restart.service
+- Dont use quiet mode on long intensive tasks on both battery and charger.
 
 ### Gpu TDP change
-***WARNING:ONLY WORK ON 525 NVIDIA DRIVER/AMD WORK ON ANY VERSION TO MY KNOWLAGE***
+***WARNING:ONLY WORKS ON 525 NVIDIA DRIVER; AMD WORKS ON ANY VERSION TO MY KNOWLEDGE***
 
-***WARNING:I DONT HAVE A AMD MACHINE PLS OPEN ISSUE AND REPORT BACK TO ME IF IT WORKS***
+***WARNING:I DON'T HAVE AN AMD MACHINE, SO PLEASE OPEN AN ISSUE AND REPORT IF IT WORKS***
 
 **Setup**
 
-The TDP change is made using the nvidia-smi for NVIDIA GPU and [rocm-smi](https://github.com/RadeonOpenCompute/rocm_smi_lib) for AMD GPU (CPU control will be added in the future).
-For enable this feature edit or create the follwing file
+The TDP change is made using the nvidia-smi for NVIDIA GPUs and [rocm-smi](https://github.com/RadeonOpenCompute/rocm_smi_lib) for AMD GPUs (CPU control will be added in the future).
+To enable this feature, edit or create the follwing file
 ```bash
 /etc/lenovo-fan-control/.env
 #!/bin/bash
@@ -74,14 +74,14 @@ For enable this feature edit or create the follwing file
 ```
 
 NVIDIA Notes only:
-Try chnage the nvidia gpu TDP with this command: ```nvidia-smi -pl 140```
-If dosent work run this command and try again (this command break supergfx funcionality):
-```bash
+Try to change the nvidia gpu TDP with this command: ```nvidia-smi -pl 140```
+If doesn't work run this command and retrying (this command break supergfx funcionality):
+```
 systemctl enable --now nvidia-persistenced.service
 ```
 Both nvidia and AMD:
 
-If ```/bin/nvidia-smi``` (for nvidia user) or ```/bin/rocm-smi``` (for amd users) dosent exist create this symbolink:
+If ```/bin/nvidia-smi``` (for nvidia user) or ```/bin/rocm-smi``` (for amd users) doesn't exist, create this sym link:
 ```bash
 # For Nvidia
 ln -P /opt/bin/nvidia-smi /bin/nvidia-smi
@@ -89,15 +89,15 @@ ln -P /opt/bin/nvidia-smi /bin/nvidia-smi
 ln -P /opt/rocm/bin/rocm-smi /bin/rocm-smi
 ```
 
-For supergfx user i recommend creating this alias on .basrc or .zshrc:
+For supergfx users I recommend creating this alias on .bashrc or .zshrc:
 ```bash
 alias hybrid_mod="supergfxctl -m hybrid && systemctl start nvidia-persistenced.service"
 alias integrated_mode="systemctl stop nvidia-persistenced.service && supergfxctl -m integrated"
 ```
 
 **Changing Values**
-Pls get the values of the Base TDP amd MAX TDP for your graphics card:
-We this two value you can change few lines in the file [/etc/lenovo-fan-control/fancurve.sh](service/fancurve-set.sh)
+Please get the values of the Base TDP amd MAX TDP for your graphics card:
+With these two values you can change a few lines in the file [/etc/lenovo-fan-control/fancurve.sh](service/fancurve-set.sh)
 
 This is a exemple of you can set (3070 values):
  - For quiet you set the base tdp or lower (GPU_TDP=80)
