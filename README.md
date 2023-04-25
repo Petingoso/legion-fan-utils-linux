@@ -1,10 +1,12 @@
 # Fan Curve Manager
 
+[![AUR](https://img.shields.io/aur/version/legion-fan-utils-linux-git?label=aur%20package)](https://aur.archlinux.org/packages/legion-fan-utils-linux-git)
+[![Gentoo Overlay](https://img.shields.io/badge/Gentoo--Overlay-mrduarte--ebuilds-blueviolet)](https://github.com/MrDuartePT/mrduarte-ebuilds)
+
 ## Overview 
 Small script that will apply a given profile.  
 Needs [kernel module](https://github.com/johnfanv2/LenovoLegionLinux) to work.  
 It'll read a give profile with `sudo python profile_man.py -i $PROFILE`, back up your default config for that mode and change it.
-
 
 ## Features 
 - Non permanent, by design. 
