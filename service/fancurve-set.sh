@@ -14,6 +14,9 @@ FOLDER=/etc/lenovo-fan-control/profiles # Location of the profiles
 #Pls edit this file for enable GPU TDP
 source /etc/lenovo-fan-control/.env
 
+#Disable minicurve
+echo 0 > /sys/module/legion_laptop/drivers/platform:legion/PNP0C09:00/hwmon/hwmon*/minifancurve
+
 if  [ $AC_ADAPTER == 1 ]; then
     if [ $POWER_PROFILE == quiet ]; then
         GPU_TDP=80 #set to GPU 80W
