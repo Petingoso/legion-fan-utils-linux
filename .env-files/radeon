@@ -2,6 +2,9 @@
 
 # Remove the comment for your configuration
 
+#Enable or Disable the MINICURVE (True -> 1; False ->0) [Disable by default]
+MINICURVE=0
+
 #RYZEN (Cpu TDP control using RyzenADJ)
 #RYZEN_RED=1
 #INTEL (Cpu control using undervolt) [https://github.com/georgewhewell/undervolt]

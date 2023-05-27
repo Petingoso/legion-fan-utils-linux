@@ -49,6 +49,7 @@ Location of the fan curves after install: /etc/lenovo-fan-control/
 Notes:
 - When using this service you need to disable, if you want to, the default behaviour using this command: sudo systemctl disable --now lenovo-fancurve.service lenovo-fancurve-restart.path lenovo-fancurve-restart.service
 - Dont use quiet mode on long intensive tasks on both battery and charger.
+- Can change the Minicurve option
 
 ### Gpu TDP change
 ***WARNING:ONLY WORKS ON 525 NVIDIA DRIVER; AMD WORKS ON ANY VERSION TO MY KNOWLEDGE***
