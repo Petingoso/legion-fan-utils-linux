@@ -37,6 +37,10 @@ It'll read a give profile with `sudo python profile_man.py -i $PROFILE`, back up
 
 -  Gpu TDP change for AMD and NVIDIA (an be change by editing [/etc/lenovo-fan-control/fancurve.sh](service/fancurve-set.sh))
 
+- Can change the Minicurve option
+
+- ADD CPU control (Intel and AMD) need to see the repo fro RyzenADJ or undervolt on how to configure via cli and edit the CPU_CONTROL_COMMAD variable in the file [/etc/lenovo-fan-control/fancurve.sh](service/fancurve-set.sh)
+
 ## Install Systemd Service (optional)
 
 Note: acpid daemon is needed to `systemd service restart` when plugged into AC and the charger is removed.
@@ -49,7 +53,6 @@ Location of the fan curves after install: /etc/lenovo-fan-control/
 Notes:
 - When using this service you need to disable, if you want to, the default behaviour using this command: sudo systemctl disable --now lenovo-fancurve.service lenovo-fancurve-restart.path lenovo-fancurve-restart.service
 - Dont use quiet mode on long intensive tasks on both battery and charger.
-- Can change the Minicurve option
 
 ### Gpu TDP change
 ***WARNING:ONLY WORKS ON 525 NVIDIA DRIVER; AMD WORKS ON ANY VERSION TO MY KNOWLEDGE***
@@ -66,10 +69,13 @@ To enable this feature, edit or create the follwing file
 
 # Remove the comment for your configuration
 
+#Enable or Disable the MINICURVE (True -> 1; False ->0) [Disable by default]
+#MINICURVE=0
+
 #RYZEN (Cpu TDP control using RyzenADJ)
-#RYZEN_RED=1
-#INTEL (Cpu control using undervolt) [https://github.com/georgewhewell/undervolt]
-#INTEL_BLUE=1
+#INTEL (Cpu TDP control using undervolt) [https://github.com/georgewhewell/undervolt]
+#Disable by default see the github from both project
+#CPU_Control = 0
 #NVIDIA (nvidia-smi)
 #TEAM_GREEN=1
 #AMD (rocm-smi)
@@ -106,9 +112,6 @@ This is a exemple of you can set (3070 values):
  - For quiet you set the base tdp or lower (GPU_TDP=80)
  - For perfomance you set the MAX tdp (GPU_TDP=115 [you can set to 125 if you have a clevo vbios])
  - For balance you can set the base tdp if you set lower in quiet (GPU_TDP=130 [you can set to 140 if you have a clevo vbios])
-
-Roadmap:
- - ADD CPU TDP control (Intel and AMD)
 ___ 
 
 ### Obligatory don't take me to court 

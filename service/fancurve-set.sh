@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #NOTE: The values for the gpu tdp in this script are for 3070 MAX-Q
+#      You can add cpu/apu option per profile the changing the command in CPU_CONTROL_COMMAD variable and addying the RyzenADJ or Undervolt command (read the readme)
 
 POWER_PROFILE=$(cat /sys/firmware/acpi/platform_profile)
 AC_ADAPTER=$(cat /sys/class/power_supply/ADP0/online)
@@ -23,25 +24,45 @@ fi
 
 if  [ $AC_ADAPTER == 1 ]; then
     if [ $POWER_PROFILE == quiet ]; then
+        echo "Applying Quiet Mode Profile ﴛ  -> charger..."
         GPU_TDP=80 #set to GPU 80W
         FANCURVE_FILE=$FOLDER/legion-profile-charger-quiet #set the fancurve file
+        if [ $CPU_Control == 1 ]; then
+            CPU_CONTROL_COMMAD= echo test quiet
+        fi
 
     elif [ $POWER_PROFILE == balanced ]; then
+        echo "Applying Balance Mode Profile   -> charger..."
         GPU_TDP=125 #set to GPU 125W
         FANCURVE_FILE=$FOLDER/legion-profile-charger-balance #set the fancurve file
+        if [ $CPU_Control == 1 ]; then
+            CPU_CONTROL_COMMAD= echo test balance
+        fi
 
     elif [ $POWER_PROFILE == performance ]; then
+        echo "Applying Performance Mode Profile 龍  -> charger..."
         GPU_TDP=140 #set to GPU 140W
         FANCURVE_FILE=$FOLDER/legion-profile-charger-performance #set the fancurve file
+        if [ $CPU_Control == 1 ]; then
+            CPU_CONTROL_COMMAD= echo test performance
+        fi
     fi
 else
     if [ $POWER_PROFILE == quiet ]; then
+        echo "Applying Quiet Mode Profile ﴛ  -> battery..."
         GPU_TDP=55 #set to GPU 55W
         FANCURVE_FILE=$FOLDER/legion-profile-battery-quiet #set the fancurve file
+        if [ $CPU_Control == 1 ]; then
+            CPU_CONTROL_COMMAD= echo test quiet
+        fi
 
     elif [ $POWER_PROFILE == balanced ]; then
+        echo "Applying Balance Mode Profile   -> battery..."     
         GPU_TDP=65 #set to GPU 65W
         FANCURVE_FILE=$FOLDER/legion-profile-battery-balance #set the fancurve file
+        if [ $CPU_Control == 1 ]; then
+            CPU_CONTROL_COMMAD= echo test balanced
+        fi
     fi
 fi
 
@@ -51,4 +72,4 @@ elif [[ $TEAM_RED -eq 1 && $VFIO_LOADED -eq false ]]; then
     rocm-smi --setpoweroverdrive $GPU_TDP
 fi
 
-python /usr/local/bin/lenovo-legion-fan-service.py -i $FANCURVE_FILE
+python lenovo-legion-fan-service.py -i $FANCURVE_FILE
