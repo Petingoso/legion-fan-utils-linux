@@ -72,4 +72,4 @@ elif [[ $TEAM_RED -eq 1 && $VFIO_LOADED -eq false ]]; then
     rocm-smi --setpoweroverdrive $GPU_TDP
 fi
 
-python lenovo-legion-fan-service.py -i $FANCURVE_FILE
+python /etc/lenovo-fan-control/lenovo-legion-fan-service.py -i $FANCURVE_FILE
