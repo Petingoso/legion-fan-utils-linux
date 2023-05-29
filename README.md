@@ -41,6 +41,8 @@ It'll read a give profile with `sudo python profile_man.py -i $PROFILE`, back up
 
 - ADD CPU control (Intel and AMD) need to see the repo fro RyzenADJ or undervolt on how to configure via cli and edit the CPU_CONTROL_COMMAD variable in the file [/etc/lenovo-fan-control/fancurve.sh](service/fancurve-set.sh)
 
+- Now uses legion_cli from LenovoLegionLinux project
+
 ## Install Systemd Service (optional)
 
 Note: acpid daemon is needed to `systemd service restart` when plugged into AC and the charger is removed.
@@ -68,9 +70,6 @@ To enable this feature, edit or create the follwing file
 #!/bin/bash
 
 # Remove the comment for your configuration
-
-#Enable or Disable the MINICURVE (True -> 1; False ->0) [Disable by default]
-#MINICURVE=0
 
 #RYZEN (Cpu TDP control using RyzenADJ)
 #INTEL (Cpu TDP control using undervolt) [https://github.com/georgewhewell/undervolt]

@@ -16,11 +16,6 @@ FOLDER=/etc/lenovo-fan-control/profiles # Location of the profiles
 source /etc/lenovo-fan-control/.env
 
 #Disable or Enable the Minicurve
-if [[ $MINICURVE -eq 0 ]]; then
-	legion_cli minifancurve-disable
-else 
-	legion_cli minifancurve-enable
-fi
 
 if  [ $AC_ADAPTER == 1 ]; then
     if [ $POWER_PROFILE == quiet ]; then
@@ -66,4 +61,4 @@ if [[ $CPU_Control -eq 1 ]]; then
     $CPU_CONTROL_COMMAD
 fi
 
-legion_cli fancurve-write-preset-to-hw $FANCURVE_FILE
+python /etc/lenovo-fan-control/lenovo-legion-fan-service.py -i $FANCURVE_FILE

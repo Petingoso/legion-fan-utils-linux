@@ -8,7 +8,7 @@ fi
 
 $sudo mkdir -p /etc/lenovo-fan-control/profiles
 
-$sudo cp service/profiles/* /etc/lenovo-fan-control/profiles
+$sudo cp -r service/profiles/* /etc/lenovo-fan-control/profiles
 $sudo cp service/fancurve-set.sh /etc/lenovo-fan-control
 $sudo cp service/.env /etc/lenovo-fan-control
 $sudo cp service/lenovo-legion-fan-service.py /etc/lenovo-fan-control/lenovo-legion-fan-service.py
