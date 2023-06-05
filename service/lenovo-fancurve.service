@@ -5,6 +5,8 @@ StopWhenUnneeded=yes
 After=systemd-logind.service
 
 [Service]
+User=root
+Group=root
 Type=exec
 ExecStart=/etc/lenovo-fan-control/fancurve-set.sh
 
