@@ -1,3 +1,6 @@
 [Service]
 Type=oneshot
 ExecStart=/bin/systemctl restart lenovo-fancurve.service
+
+[Unit]
+StartLimitIntervalSec=0
