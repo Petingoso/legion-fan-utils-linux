@@ -1,5 +1,5 @@
 [Path]
-Unit=lenovo-fancurve-restart.service
+Unit=lenovo-fancurve.service
 PathModified=/sys/firmware/acpi/platform_profile
 
 [Install]

@@ -3,6 +3,9 @@
 [![AUR](https://img.shields.io/aur/version/legion-fan-utils-linux-git?label=aur%20package)](https://aur.archlinux.org/packages/legion-fan-utils-linux-git)
 [![Gentoo Overlay](https://img.shields.io/badge/Gentoo--Overlay-mrduarte--ebuilds-blueviolet)](https://github.com/MrDuartePT/mrduarte-ebuilds)
 
+## Notes
+The funcionality of this package was introduce in [LenovoLegionLinux](https://github.com/johnfanv2/LenovoLegionLinux) with this [PR](https://github.com/johnfanv2/LenovoLegionLinux/pull/69) so this package is not needed if you are using LLL python gui and cli 
+
 ## Overview 
 Small script that will apply a given profile.  
 Needs [kernel module](https://github.com/johnfanv2/LenovoLegionLinux) to work.  
